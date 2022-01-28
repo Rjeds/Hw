@@ -1,0 +1,256 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace Hw3
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            Console.WriteLine("Введите сроку");
+            string stroka = Console.ReadLine();
+            Console.WriteLine();
+
+            Console.WriteLine("1 Задание");
+            seacrh_Max(stroka);
+            Console.WriteLine("2 Задание");
+            seacrh_MaxSize(stroka);
+            Console.WriteLine("3 Задание");
+            zamena(stroka);
+            Console.WriteLine("4 Задание");
+            vorpos_vosklic(stroka);
+            Console.WriteLine("5 Задание");
+            zapitie(stroka);
+            Console.WriteLine("6 Задание");
+            poisk_Slova(stroka);
+
+
+
+            Console.ReadKey();
+
+        }
+
+        private static void poisk_Slova(string stroka)
+        {
+            string[] words = stroka.Split(new char[] { '.', ',', '!', '?', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var item in words)
+            {
+                if (item[0] == item[item.Length - 1])
+                {
+                    Console.WriteLine(item);
+                }
+            }
+
+            /*string[] slova_nujnie = new string[10];
+            string[] words = stroka.Split(' ');
+            for (int i = 0; i < words.Length; i++)
+            {
+                int scet = 0;
+                string word = words[i];
+
+                for (int j = 0; j < words[i].Length; j++)
+                {
+                    char simvl = word[j];
+                    int size = words[i].Length;                    
+                    char simvl2 = word[size-1];
+                    if (simvl == simvl2)
+                    {
+                        slova_nujnie[scet] = words[i];
+                        scet++;
+                    }
+
+
+
+
+                }
+
+            }
+            Console.WriteLine($"Слова начинающиеся на одну и ту же букву\n{slova_nujnie}");
+            */
+
+
+        }
+
+        //поиск слова содержащего больше всего цифр
+        public static void seacrh_Max(string stroka)
+        {
+            string[] words = stroka.Split(' ');
+            int nujnoeslovo = 0;
+            int sravnenie = 0;
+            int schetcik = 0;
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                string word = words[i];
+
+                for (int j = 0; j < words[i].Length; j++)
+                {
+
+                    char simvl = word[j];
+
+                    // определяет цифра или нет
+                    if (char.GetNumericValue(simvl) == -1)
+                    {
+                        //буква 
+                    }
+                    else
+                    {
+                        //цифра
+                        schetcik++;
+                    }
+
+                }
+                if (schetcik > sravnenie)
+                {
+                    sravnenie = schetcik;
+                    nujnoeslovo = i;
+                }
+                schetcik = 0;
+
+            }
+
+            Console.WriteLine($"Ваша строка: {stroka}");
+            Console.WriteLine($"{words[nujnoeslovo]} слово содержит больше всего цифр\n\n");
+
+        }
+
+        //самое длинное слово в тексте и количество его повторений
+        public static void seacrh_MaxSize(string stroka)
+        {
+            string[] words = stroka.Split(' ');
+            string nujnoeslovo = null;
+            int colichestvo = 0;
+            nujnoeslovo = words[0];
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i].Length > nujnoeslovo.Length)
+                {
+                    nujnoeslovo = words[i];
+
+                }
+            }
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i] == nujnoeslovo)
+                {
+                    colichestvo++;
+                }
+            }
+
+            Console.WriteLine($"Ваша строка: {stroka}");
+            Console.WriteLine($"Самое длинное слово: {nujnoeslovo}");
+            Console.WriteLine($"Оно встречаеться: {colichestvo} раз\n\n");
+
+        }
+
+        public static void zamena(string stroka)
+        {
+
+            string[] words = stroka.Split(' ');
+            string[] words2 = words;
+            Console.WriteLine($"Старая строка : {stroka}");
+
+            for (int i = 0; i < words.Length; i++)
+            {
+                string word = words[i];
+
+
+                switch (word)
+                {
+                    case "1":
+                        words[i] = "один";
+                        i--;
+                        break;
+                    case "2":
+                        words[i] = "два";
+                        i--;
+                        break;
+                    case "3":
+                        words[i] = "три";
+                        i--;
+                        break;
+                    case "4":
+                        words[i] = "четыре";
+                        i--;
+                        break;
+                    case "5":
+                        words[i] = "пять";
+                        i--;
+                        break;
+                    case "6":
+                        words[i] = "шесть";
+                        i--;
+                        break;
+                    case "7":
+                        words[i] = "семь";
+                        i--;
+                        break;
+                    case "8":
+                        words[i] = "восемь";
+                        i--;
+                        break;
+                    case "9":
+                        words[i] = "девять";
+                        i--;
+                        break;
+                }
+
+
+
+            }
+            Console.WriteLine($"Строка с заменой: ");
+            for (int j = 0; j < words.Length; j++)
+            {
+                Console.Write($"{words[j]} ");
+            }
+
+            Console.WriteLine("\n\n");
+
+
+
+        }
+
+        public static void vorpos_vosklic(string stroka)
+        {
+            string[] words = stroka.Split('?');
+
+
+
+            // Выводим на консоль вопросительные предложения
+            foreach (string st in words)
+            {
+                string[] split = st.Split('.', '!');
+                Console.WriteLine($"{split[split.Length - 1]} ?");
+            }
+
+
+            string[] words2 = stroka.Split('!');
+
+            //Выводим на консоль восклицательные предложения
+            foreach (string st in words2)
+            {
+                string[] split = st.Split('.', '?');
+                Console.WriteLine($"{split[split.Length - 1]} !");
+            }
+            Console.WriteLine("\n");
+
+        }
+
+        public static void zapitie(string stroka)
+        {            
+            string[] words = stroka.Split(new[] { '.', '!', '?' });
+            foreach (string word in words)
+            {
+                if (!word.Contains(','))
+                    Console.WriteLine(word.Trim());
+            }
+            Console.WriteLine("\n");
+        }
+
+    }
+}
+
